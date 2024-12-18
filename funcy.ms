@@ -9,18 +9,18 @@ transpose = function(matrix)
     return []
   end if
 
-  return [map(@head, matrix)] + transpose(map(@tail, matrix))
+  return [fmap(@head, matrix)] + transpose(fmap(@tail, matrix))
 end function
 
-// map :: (a -> b) -> [a] -> [b]
-map = function(func, lst)
+// fmap :: (a -> b) -> [a] -> [b]
+fmap = function(func, lst)
   if not lst then
     return []
   end if
-  return [func(head(lst))] + map(@func, tail(lst))
+  return [func(head(lst))] + fmap(@func, tail(lst))
 end function
 
-// map :: (a -> bool) -> [a] -> [a]
+// filter :: (a -> bool) -> [a] -> [a]
 filter = function(func, lst)
   if not lst then
     return []
@@ -76,7 +76,6 @@ zipWith = function(func, xs, ys)
 end function
 
 // arithmetic functions
-
 add = function(a, b)
   return a + b
 end function
@@ -93,6 +92,7 @@ subtract = function(a, b)
   return a - b
 end function
 
+// predicates
 isEven = function(n)
   return n % 2 == 0
 end function
@@ -101,6 +101,7 @@ isOdd = function(n)
   return n % 2 == 1
 end function
 
+//combinators
 compose=function(f, g)
   wrapper=function(xs)
     return f(@g, xs)
@@ -109,6 +110,7 @@ compose=function(f, g)
   return @wrapper
 end function
 
+//util
 notEmpty = function(elem)
   if elem then
     return true
