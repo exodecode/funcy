@@ -76,6 +76,7 @@ zipWith = function(func, xs, ys)
 end function
 
 // arithmetic functions
+
 add = function(a, b)
   return a + b
 end function
@@ -92,7 +93,6 @@ subtract = function(a, b)
   return a - b
 end function
 
-// predicates
 isEven = function(n)
   return n % 2 == 0
 end function
@@ -101,7 +101,6 @@ isOdd = function(n)
   return n % 2 == 1
 end function
 
-//combinators
 compose=function(f, g)
   wrapper=function(xs)
     return f(@g, xs)
@@ -110,7 +109,13 @@ compose=function(f, g)
   return @wrapper
 end function
 
-//util
+curry = function(f, x)
+  curryWrapper = function(y)
+    return @f(x, y)
+  end function
+  return @curryWrapper
+end function
+
 notEmpty = function(elem)
   if elem then
     return true
